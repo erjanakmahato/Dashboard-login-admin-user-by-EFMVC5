@@ -1,0 +1,64 @@
+﻿@model LuminoDashBoard.Models.ViewModel.UserViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li class="active">User</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">New User</h1>
+    </div>
+</div><!--/.row-->
+
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="panel panel-default">
+            <div class="panel-heading">Create User</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>Text Input</label>
+                            <input class="form-control" placeholder="Placeholder">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox">Remember me
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>File input</label>
+                            <input type="file">
+                            <p class="help-block">Example block-level help text here.</p>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+    }
+</div>
+
+

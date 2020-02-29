@@ -1,0 +1,136 @@
+﻿@model LuminoDashBoard.Models.ViewModel.ProductViewModel
+
+@{
+    ViewBag.Title = "AddOrEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function showimagepreview1(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#smimg').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+
+    /**/</script>
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li class="active">Manage Category</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Category</h1>
+    </div>
+</div><!--/.row-->
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <ul class="pull-right">
+
+                    <li style="list-style:none">
+                        <a class="btn btn-info" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Category")')"><i class="fa fa-plus"></i> Add New</a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <div class="panel-body">
+                <div class="canvas-wrapper">
+                    @using (Html.BeginForm("AddOrEdit", "Product", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ProductId)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"), "Select Category", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.UnitPrice, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SellingPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.SellingPrice, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                (Size 250*300)
+                                <div class="col-md-10">
+                                    <img id="smimg" src="~/ProductImages/@Model.Photo" height="100" width="90" />
+                                    @Html.TextBoxFor(model => model.Photo, new { @Type = "file", @class = "form-control", @onchange = "showimagepreview1(this)" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2"></label>
+                                <div class="col-md-10">
+
+                                    <input type="submit" value="Submit" class="btn btn-primary" />
+                                    @Html.ActionLink("Back To List", "ManageProduct", null, new { @class = "btn btn-info" })
+                                    @ViewBag.Message
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
